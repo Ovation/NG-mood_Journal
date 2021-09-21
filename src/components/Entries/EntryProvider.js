@@ -12,6 +12,10 @@ export const EntryProvider = (props) => {
         .then(res => res.json())
         .then(setEntries)
     }
+    const getPublicEntries = (props) => {
+        return fetch(`http://localhost:8088/entries/?isPublic=true`)
+        .then(result => result.json())
+    }
 
     const addEntry = entry => {
         return fetch(`http://localhost:8088/entries`, {

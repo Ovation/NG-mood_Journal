@@ -15,6 +15,7 @@ export const EntryList = () => {
     getEntries()
   }, [])
 
+  const entryTitleFilter=entries['Title']
   return (
     <>
     <h3>Entries</h3>
@@ -25,7 +26,7 @@ export const EntryList = () => {
         <form>  
             <label> Filter By: </label>  
                   <select>  
-                    <option value = "All" id="allFilter"> All
+                    <option value = "entries" id="allFilter"> All
                     </option>  
                     <option value = "entryTitleFilter" > Title
                     </option>  

@@ -1,24 +1,28 @@
 import "./Friends.css"
 import React, { useContext, useEffect, useState } from "react"
-import { FriendContext } from "./FriendProvider"
+import { FriendContext, FriendProvider } from "./FriendProvider"
 import { useHistory } from "react-router-dom"
+import { EntryContext } from "../Entries/EntryProvider"
 
 export const FriendPage = () => {
 
   const history = useHistory()
   const { Friends, getFriends } = useContext(FriendContext)
-  /*const [filterTerm, setFilterTerm] = useState("") 
-  const filteredEntries=entries.filter(entry => {
-
-    return true
-  
-  })*/
-
+  const {entries, getEntries} =useContext(EntryContext)
+  const[publicEntries,setPublicEntries]=useState([])
   useEffect(() => {
-    console.log("FriendList: useEffect - getFriends")
     getFriends()
   }, [])
 
+  useEffect(() => {
+    getEntries()
+  }, [])
+
+useEffect(()=> {
+ const publicEntries= entries.filter(entry =>entry.isPublic==="true")
+ setPublicEntries(publicEntries)
+},[entries])
+  
   return (
     <>
       <h3>Friends</h3>
@@ -35,13 +39,30 @@ export const FriendPage = () => {
                 <div className="username">
                   username: {friend.username}
                 </div>
-
+                <div>
+                </div>
               </div>
             </>
           )
         })}
       </div>
+      <div>
+        {publicEntries.map(entry=>{
+          return (
+           <>
+            <div>{entry.title} </div>
+            <div>{entry.subject} </div>
+            <div>{entry.body} </div>
+            <div>{entry.mood} </div>
+            <div>{entry.dateTime} </div>
+            <div>{entry.isPublic} </div>
+            </>
+          )
+          
+        })}
+      </div>
     </>
   )
+
 
 }

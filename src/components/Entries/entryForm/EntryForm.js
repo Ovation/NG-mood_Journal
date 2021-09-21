@@ -23,10 +23,6 @@ export const EntryForm = () => {
 
     const HandleInput = (event) => {
         const newEntry = { ...entry }
-        if (event.target.type==='checkbox') {
-            newEntry[event.target.id] = event.target.checked
-            event.target.value=true
-        }
         newEntry[event.target.id] = event.target.value
         setEntry(newEntry)
     }
@@ -85,7 +81,7 @@ export const EntryForm = () => {
                     <input type="date" id="dateTime" className="form" placeholder="date" value={entry.dateTime} onChange={HandleInput} />
                 </div>
                 <div>
-                <input type="checkbox" id="isPublic" name="publicStatus" checked={entry.isPublic} onChange={HandleInput}>
+                <input type="checkbox" id="isPublic" name="publicStatus" value={entry.isPublic} onChange={HandleInput}>
              </input>
   <label htmlFor="public?">Make this entry public?</label>
    
