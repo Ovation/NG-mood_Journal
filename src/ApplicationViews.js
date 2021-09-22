@@ -7,11 +7,13 @@ import { EntryProvider } from "./components/Entries/EntryProvider"
 import { EntryList } from "./components/Entries/EntryList"
 import { WelcomePage } from "./components/Welcome"
 import { FriendProvider } from "./components/Friends/FriendProvider"
+import { LabelProvider } from "./components/Entries/entryForm/Labelprovider"
 export const ApplicationViews = () => {
   return (
     <>
       <EntryProvider>
         <FriendProvider>
+          <LabelProvider>
           <Route exact path="/">
             <WelcomePage />
           </Route>
@@ -27,6 +29,7 @@ export const ApplicationViews = () => {
           <Route exact path="/friends/newFriend">
             <FriendForm />
           </Route>
+          </LabelProvider>
         </FriendProvider>
       </EntryProvider>
     </>
