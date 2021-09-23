@@ -15,27 +15,28 @@ export const EntryList = () => {
   useEffect(() => {
     if (searchTerms !== "") {
       // If the search field is not blank, display matching entries
-      if (selectedLabel==='1') {
+      if (selectedLabel === '1') {
         const subset = entries.filter(entry => entry.title.toLowerCase().includes(searchTerms.toLowerCase()))
         setFiltered(subset)
       }
-      else if (selectedLabel==='2') {
+      else if (selectedLabel === '2') {
         const subset = entries.filter(entry => entry.subject.toLowerCase().includes(searchTerms.toLowerCase()))
         setFiltered(subset)
       }
-      else if (selectedLabel==='3') {
+      else if (selectedLabel === '3') {
         const subset = entries.filter(entry => entry.body.toLowerCase().includes(searchTerms.toLowerCase()))
         setFiltered(subset)
       }
-      else if (selectedLabel==='4') {
+      else if (selectedLabel === '4') {
         const subset = entries.filter(entry => entry.mood.toLowerCase().includes(searchTerms.toLowerCase()))
         setFiltered(subset)
       }
-      else if(selectedLabel==='5') {
+      else if (selectedLabel === '5') {
         const subset = entries.filter(entry => entry.dateTime.includes(searchTerms))
         setFiltered(subset)
-      }}
-      
+      }
+    }
+
 
     else {
       // If the search field is blank, display all entries
@@ -56,33 +57,22 @@ export const EntryList = () => {
   const handleControlledInputChange = (event) => {
     debugger
     const selectedLabel = event.target.value
-   setSelectedLabel(selectedLabel)
+    setSelectedLabel(selectedLabel)
   }
 
   const entryTitleFilter = entries['Title']
   return (
     <>
-      <h3>Entries</h3>
+      <h3 class="header_entries">Entries</h3>
       <button onClick={() => history.push("/entries/newEntry")}>
         Create an Entry
       </button>
       <div className="Entries">
         <form>
           <label> Filter By: </label>
-          {/* <select>  
-                    <option value = "entries" id="allFilter"> All
-                    </option>  
-                    <option value = 'title' > Search by Title
-                    </option>  
-                    <option value = 'subject'> Subject 
-                    </option>  
-                    <option value = 'mood'> Mood 
-                    </option>  
-                    <option value = 'dateTime'> Date 
-                    </option>  
-                </select>   */}
-          <select value={selectedLabel} name="label"  className="form-control" onChange={handleControlledInputChange}>
-            <option value="0">Select a label</option>
+
+          <select value={selectedLabel} name="label" className="form-control" onChange={handleControlledInputChange}>
+            <option value="0" className="filter_drop_down">All</option>
             {labels.map(l => (
               <option key={l.id} value={l.id}>
                 {l.label}
@@ -97,7 +87,7 @@ export const EntryList = () => {
 
         return (
           <div className="entries" id={`entry--${entry.id}`}>
-
+            <div className="fullEntry">
             <div className="entryTitle">
               <b>Title: </b>{entry.title}
             </div>
@@ -115,6 +105,7 @@ export const EntryList = () => {
             </div>
             <div className="entryPublicStatus">
               <b>Public status: </b>{entry.isPublic}
+              </div>
             </div>
           </div>
         )

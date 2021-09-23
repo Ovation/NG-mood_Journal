@@ -19,13 +19,13 @@ export const FriendPage = () => {
   }, [])
 
 useEffect(()=> {
- const publicEntries= entries.filter(entry =>entry.isPublic==="true")
+ const publicEntries= entries.filter(entry =>entry.isPublic==="on")
  setPublicEntries(publicEntries)
 },[entries])
   
   return (
     <>
-      <h3>Friends</h3>
+      <h3 className="header_friends">Friends</h3>
       <div className="friends_window">
         <button onClick={() => history.push("/friends/newFriend")}>
           Add a friend
@@ -49,13 +49,14 @@ useEffect(()=> {
       <div>
         {publicEntries.map(entry=>{
           return (
-           <>
-            <div>{entry.title} </div>
-            <div>{entry.subject} </div>
-            <div>{entry.body} </div>
-            <div>{entry.mood} </div>
-            <div>{entry.dateTime} </div>
-            <div>{entry.isPublic} </div>
+           <><div className="entries">
+            <div><b>title:</b>{entry.title} </div>
+            <div><b>subject:</b>{entry.subject} </div>
+            <div><b>body:</b>{entry.body} </div>
+            <div><b>mood:</b>{entry.mood} </div>
+            <div><b>date:</b>{entry.dateTime} </div>
+            <div><b>public status:</b>{entry.isPublic} </div>
+            </div>
             </>
           )
           

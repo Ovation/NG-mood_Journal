@@ -1,7 +1,8 @@
+
 export const WelcomePage =() => {
     return (
         <>
-    <h3>Welcome!</h3>
+    <h3 className="title">Welcome!</h3>
 
 
         </>

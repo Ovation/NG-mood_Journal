@@ -1,3 +1,4 @@
+import "./EntryForm.css" 
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router";
 import { EntryContext } from "../EntryProvider"
