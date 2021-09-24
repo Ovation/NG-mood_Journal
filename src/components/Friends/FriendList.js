@@ -25,7 +25,7 @@ useEffect(()=> {
   
   return (
     <>
-      <h3 className="header_friends">Friends</h3>
+      <h3 className="header_friends">Friends and The Posts They Can See</h3>
       <div className="friends_window">
         <button onClick={() => history.push("/friends/newFriend")}>
           Add a friend
@@ -49,7 +49,8 @@ useEffect(()=> {
       <div>
         {publicEntries.map(entry=>{
           return (
-           <><div className="entries">
+           <>
+           <div className="entries">
             <div><b>title:</b>{entry.title} </div>
             <div><b>subject:</b>{entry.subject} </div>
             <div><b>body:</b>{entry.body} </div>
