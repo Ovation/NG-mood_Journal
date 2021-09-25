@@ -1,4 +1,16 @@
-/*.header_entries {
+.header_entries {
     color:beige;
     text-align:center;
-}*/
+}
+
+.fullEntry {
+    border-style:solid;
+    background-color:beige;
+}
+button {
+    background-color:beige;
+}
+
+.filter_drop_down {
+    margin-inline:initial;
+}

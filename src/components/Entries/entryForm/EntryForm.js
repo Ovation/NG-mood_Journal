@@ -1,3 +1,4 @@
+import "./EntryForm.css" 
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router";
 import { EntryContext } from "../EntryProvider"
@@ -23,10 +24,6 @@ export const EntryForm = () => {
 
     const HandleInput = (event) => {
         const newEntry = { ...entry }
-        if (event.target.type==='checkbox') {
-            newEntry[event.target.id] = event.target.checked
-            event.target.value=true
-        }
         newEntry[event.target.id] = event.target.value
         setEntry(newEntry)
     }
@@ -85,7 +82,7 @@ export const EntryForm = () => {
                     <input type="date" id="dateTime" className="form" placeholder="date" value={entry.dateTime} onChange={HandleInput} />
                 </div>
                 <div>
-                <input type="checkbox" id="isPublic" name="publicStatus" checked={entry.isPublic} onChange={HandleInput}>
+                <input type="checkbox" id="isPublic" name="publicStatus" checkedValue={entry.isPublic} value="true" onChange={HandleInput}>
              </input>
   <label htmlFor="public?">Make this entry public?</label>
    

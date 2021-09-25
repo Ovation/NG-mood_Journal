@@ -1,4 +1,4 @@
-import "./journal_home.css"
+import "./welcome.css"
 import {NavBar} from "./components/nav/navBar"
 import { ApplicationViews } from "./ApplicationViews"
 export const Homepage = (props) => {

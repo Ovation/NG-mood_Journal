@@ -1,4 +1,9 @@
-/*body {
+.title {
+    text-align:center;
+    color:beige;
+    font-size: 40px;
+}
+body {
     background: URL(http://eskipaper.com/images/brown-backgrounds-1.jpg)
 }
 
@@ -6,4 +11,3 @@
     color:beige;
     text-align:center;
 }
-*/

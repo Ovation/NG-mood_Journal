@@ -5,12 +5,16 @@ export const EntryContext = createContext()
 
 export const EntryProvider = (props) => {
     const [entries, setEntries] = useState([])
-
+    const [searchTerms,setSearchTerms]=useState("")
 
     const getEntries = () => {
         return fetch(`http://localhost:8088/entries`)
         .then(res => res.json())
         .then(setEntries)
+    }
+    const getPublicEntries = (props) => {
+        return fetch(`http://localhost:8088/entries/?isPublic=true`)
+        .then(result => result.json())
     }
 
     const addEntry = entry => {
@@ -46,7 +50,7 @@ export const EntryProvider = (props) => {
 
     return (
         <EntryContext.Provider value={{
-            entries, getEntries, addEntry, getEntryById, updateEntry, deleteEntry
+            entries, getEntries, addEntry, getEntryById, updateEntry, deleteEntry,searchTerms, setSearchTerms
         }}>
             {props.children}
         </EntryContext.Provider>
