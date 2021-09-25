@@ -19,7 +19,7 @@ export const FriendPage = () => {
   }, [])
 
 useEffect(()=> {
- const publicEntries= entries.filter(entry =>entry.isPublic==="on")
+ const publicEntries= entries.filter(entry =>entry.isPublic==="true")
  setPublicEntries(publicEntries)
 },[entries])
   
