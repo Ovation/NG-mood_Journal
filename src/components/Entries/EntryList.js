@@ -104,7 +104,7 @@ export const EntryList = () => {
               <b>Date created: </b>{entry.dateTime}
             </div>
             <div className="entryPublicStatus">
-              <b>Public status: </b>{entry.isPublic}
+              <b>Public status: </b>{entry.isPublic.toString()}
               </div>
             </div>
           </div>
