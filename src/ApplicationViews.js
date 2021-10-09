@@ -23,6 +23,9 @@ export const ApplicationViews = () => {
           <Route exact path="/entries/newEntry">
             <EntryForm />
           </Route>
+          <Route path="/entries/edit/:entryId(\d+)">
+            <EntryForm/>
+            </Route>
           <Route exact path="/Friends">
             <FriendPage />
           </Route>

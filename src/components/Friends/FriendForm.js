@@ -44,7 +44,7 @@ return (
                 </div>
                 </fieldset>
                 <button className="btn btn-primary" onClick={handleSaveFriend}>
-                Save Friend to database
+                Save Friend to Friends List
             </button>
                 </form>
                 </>

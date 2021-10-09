@@ -7,10 +7,11 @@ import { LabelContext } from "./entryForm/Labelprovider"
 export const EntryList = () => {
 
   const history = useHistory()
-  const { entries, getEntries, searchTerms, setSearchTerms } = useContext(EntryContext)
+  const { entries, getEntries, searchTerms, setSearchTerms,DeleteEntry} = useContext(EntryContext)
   const { labels, getLabels } = useContext(LabelContext)
   const [filteredEntries, setFiltered] = useState([])
   const [selectedLabel, setSelectedLabel] = useState("")
+  
   useEffect(() => { setSearchTerms("") }, [])
   useEffect(() => {
     if (searchTerms !== "") {
@@ -44,26 +45,32 @@ export const EntryList = () => {
     }
   }, [searchTerms, entries])
 
+  console.log("EntryList: useEffect - getEntries")
+  
 
   useEffect(() => {
-    console.log("EntryList: useEffect - getEntries")
     getEntries()
   }, [])
+
   useEffect(() => {
     console.log("EntryList: useEffect - getEntries")
     getLabels()
   }, [])
 
   const handleControlledInputChange = (event) => {
-    debugger
+  
     const selectedLabel = event.target.value
     setSelectedLabel(selectedLabel)
   }
+  const removeEntry = id => () => {
+    DeleteEntry(id)
+      .then(() => {
+        history.push("/entries")
+      })}
 
-  const entryTitleFilter = entries['Title']
   return (
     <>
-      <h3 class="header_entries">Entries</h3>
+      <h3 className="header_entries">Entries</h3>
       <button onClick={() => history.push("/entries/newEntry")}>
         Create an Entry
       </button>
@@ -106,6 +113,9 @@ export const EntryList = () => {
             <div className="entryPublicStatus">
               <b>Public status: </b>{entry.isPublic.toString()}
               </div>
+              <button  onClick={() => {
+                    history.push(`/entries/edit/${entry.id}`);
+                  }}>Edit</button> <button onClick={removeEntry(entry.id)}>Delete</button>
             </div>
           </div>
         )

@@ -7,9 +7,10 @@ import { EntryContext } from "../Entries/EntryProvider"
 export const FriendPage = () => {
 
   const history = useHistory()
-  const { Friends, getFriends } = useContext(FriendContext)
-  const {entries, getEntries} =useContext(EntryContext)
+  const { Friends, getFriends,DeleteFriend} = useContext(FriendContext)
+  const {entries, getEntries,DeleteEntry} =useContext(EntryContext)
   const[publicEntries,setPublicEntries]=useState([])
+  const [friend,setFriend]=useState([])
   useEffect(() => {
     getFriends()
   }, [])
@@ -22,6 +23,18 @@ useEffect(()=> {
  const publicEntries= entries.filter(entry =>entry.isPublic==="true")
  setPublicEntries(publicEntries)
 },[entries])
+
+const removeFriend = id => () => {
+  DeleteFriend(id)
+    .then(() => {
+      history.push("/friends")
+    })}
+
+    const removeEntry = id => () => {
+      DeleteEntry(id)
+        .then(() => {
+          history.push("/entries")
+        })}
   
   return (
     <>
@@ -33,11 +46,13 @@ useEffect(()=> {
         </button>
         {Friends.map((friend) => {
 
+
           return (
             <>
               <div className="friends_list" id={`friend--${friend.id}`}>
                 <div className="username">
                   username: {friend.username}
+                  <button onClick={removeFriend(friend.id)}>Unfollow</button>
                 </div>
                 <div>
                 </div>
@@ -57,6 +72,10 @@ useEffect(()=> {
             <div><b>mood:</b>{entry.mood} </div>
             <div><b>date:</b>{entry.dateTime} </div>
             <div><b>public status:</b>{entry.isPublic} </div>
+            <button onClick={() => {
+                    history.push(`/entries/edit/${entry.id}`);
+                  }}>Edit</button>
+            <button onClick={removeEntry()}>Delete</button>
             </div>
             </>
           )

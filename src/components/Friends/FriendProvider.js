@@ -22,13 +22,8 @@ export const FriendProvider = (props) => {
         })
     }
 
-    const getFriendById = (id) => {
-        return fetch(`http://localhost:8088/friends/${id}`)
-        .then(res => res.json())
-    }
-
-    const updateFriend = friend => {
-        return fetch(`http://localhost:8088/friends/${friend.id}`, {
+    const EditFriend = friend => {
+        return fetch(`http://localhost:8088/friends`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -37,15 +32,25 @@ export const FriendProvider = (props) => {
         })
     }
 
-    const deleteFriend = Friend => {
-        return fetch(`http://localhost:8088/friends/${Friend.id}`, {
+    const DeleteFriend = friendId => {
+        return fetch(`http://localhost:8088/friends/${friendId}`, {
             method: "DELETE"
-        }).then(getFriends)
+            
+        })
+        .then(getFriends)
     }
+
+    const getFriendById = (id) => {
+        return fetch(`http://localhost:8088/friends/${id}`)
+        .then(res => res.json())
+    }
+
+
+
 
     return (
         <FriendContext.Provider value={{
-            Friends, getFriends, addFriend, getFriendById, updateFriend, deleteFriend
+            Friends, getFriends, addFriend, getFriendById, EditFriend, DeleteFriend
         }}>
             {props.children}
         </FriendContext.Provider>

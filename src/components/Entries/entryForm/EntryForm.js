@@ -1,12 +1,13 @@
 import "./EntryForm.css" 
 import React, { useContext, useEffect, useState } from "react"
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { EntryContext } from "../EntryProvider"
 
 
 export const EntryForm = () => {
-    const {  getEntries, addEntry } = useContext(EntryContext)
-    
+    const { getEntries, addEntry,EditEntry,getEntryById } = useContext(EntryContext)
+    const {entryId}=useParams()
+    const [isLoading, setIsLoading] = useState(true);
     const [entry, setEntry] = useState({
         title: "",
         subject: "",
@@ -21,15 +22,40 @@ export const EntryForm = () => {
     useEffect(() => {
         getEntries()
     }, [])
-
+    useEffect(() => {
+         
+          if(entryId) {
+            getEntryById(parseInt(entryId))
+            .then(entry => {
+              setEntry(entry)
+              setIsLoading(false)
+            })
+          } else {
+            setIsLoading(false)
+          }
+    
+      }, [])
     const HandleInput = (event) => {
         const newEntry = { ...entry }
         newEntry[event.target.id] = event.target.value
         setEntry(newEntry)
     }
 
-    const saveEntry = (event) => {
-              event.preventDefault()
+    const saveEntry = () => {
+              
+              if (entryId) {
+
+                  EditEntry({
+                      id:entry.id,
+                      title:entry.title,
+                      subject:entry.subject,
+                      body:entry.body,
+                      mood:entry.mood,
+                      dateTime:entry.dateTime,
+                      isPublic:entry.isPublic,
+                  }) .then(() => history.push(`/entries/edit/${entry.id}`))
+                }
+              
             const newEntry = {
                 id: entry.id,
                 title: entry.title,
@@ -88,9 +114,18 @@ export const EntryForm = () => {
    
                 </div>
             </fieldset>
-            <button className="save-btn" onClick={saveEntry}>
-                Save Entry
-            </button>
+            
+            <button className="btn btn-primary"
+          disabled={isLoading}
+          onClick={event => {
+            event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+            saveEntry()
+          }}>
+        {entryId ? <>Save Entry</> : <>Add Entry</>}
+        </button>
+        <button onClick={() => history.push("/entries")}>
+          Back
+        </button>
         </form>
     )
     }

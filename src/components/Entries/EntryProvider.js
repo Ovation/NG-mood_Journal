@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react"
+import { useEffect } from "react/cjs/react.development"
 
 export const EntryContext = createContext()
 
@@ -12,10 +13,7 @@ export const EntryProvider = (props) => {
         .then(res => res.json())
         .then(setEntries)
     }
-    const getPublicEntries = (props) => {
-        return fetch(`http://localhost:8088/entries/?isPublic=true`)
-        .then(result => result.json())
-    }
+    
 
     const addEntry = entry => {
         return fetch(`http://localhost:8088/entries`, {
@@ -26,31 +24,34 @@ export const EntryProvider = (props) => {
             body: JSON.stringify(entry)
         })
     }
-
+  
     const getEntryById = (id) => {
         return fetch(`http://localhost:8088/entries/${id}`)
         .then(result => result.json())
     }
 
-    const updateEntry = entry => {
+    const EditEntry = entry => {
         return fetch(`http://localhost:8088/entries/${entry.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(entry)
+
         })
     }
-
-    const deleteEntry = entryId => {
+    const DeleteEntry = entryId => {
         return fetch(`http://localhost:8088/entries/${entryId}`, {
             method: "DELETE"
-        }).then(getEntries)
+            })
+            .then(getEntries)
+        
     }
+
 
     return (
         <EntryContext.Provider value={{
-            entries, getEntries, addEntry, getEntryById, updateEntry, deleteEntry,searchTerms, setSearchTerms
+            entries, getEntries, addEntry, getEntryById,searchTerms, setSearchTerms,EditEntry,DeleteEntry
         }}>
             {props.children}
         </EntryContext.Provider>
